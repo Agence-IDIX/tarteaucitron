@@ -1025,14 +1025,14 @@ tarteaucitron.services.gajs = {
             window._gaq.push (['_gat._anonymizeIp']);
         }
 
+        if (typeof tarteaucitron.user.gajsBefore === 'function') {
+            tarteaucitron.user.gajsBefore();
+        }
+
         if (tarteaucitron.user.gajsPageView) {
             window._gaq.push(['_trackPageview, ' + tarteaucitron.user.gajsPageView]);
         } else {
             window._gaq.push(['_trackPageview']);
-        }
-
-        if (typeof tarteaucitron.user.gajsBefore === 'function') {
-            tarteaucitron.user.gajsBefore();
         }
 
         tarteaucitron.addScript('//www.google-analytics.com/ga.js', '', function () {
