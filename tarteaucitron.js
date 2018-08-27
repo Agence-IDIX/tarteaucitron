@@ -170,7 +170,7 @@ var tarteaucitron = {
 
                     try {
                         origOpen.apply(this, arguments);
-                    } catch (err) {}
+                    } catch (err) { }
                 };
             }
         }
@@ -215,9 +215,9 @@ var tarteaucitron = {
         // Step 2: load language and services
         tarteaucitron.addScript(pathToLang, '', function () {
 
-          if(tarteaucitronCustomText !== ''){
-            tarteaucitron.lang = tarteaucitron.AddOrUpdate(tarteaucitron.lang, tarteaucitronCustomText);
-          }
+            if (tarteaucitronCustomText !== '') {
+                tarteaucitron.lang = tarteaucitron.AddOrUpdate(tarteaucitron.lang, tarteaucitronCustomText);
+            }
             tarteaucitron.addScript(pathToServices, '', function () {
 
                 var body = document.body,
@@ -430,10 +430,10 @@ var tarteaucitron = {
             html += '   <div class="tarteaucitronName">';
             html += '       <b>' + service.name + '</b><br/>';
             html += '       <span id="tacCL' + service.key + '" class="tarteaucitronListCookies"></span><br/>';
-            html += '       <a href="https://opt-out.ferank.eu/service/' + service.key + '/" target="_blank" rel="noopener">';
-            html += '           ' + tarteaucitron.lang.more;
-            html += '       </a>';
-            html += '        - ';
+            // html += '       <a href="https://opt-out.ferank.eu/service/' + service.key + '/" target="_blank" rel="noopener">';
+            // html += '           ' + tarteaucitron.lang.more;
+            // html += '       </a>';
+            // html += '        - ';
             html += '       <a href="' + service.uri + '" target="_blank" rel="noopener">';
             html += '           ' + tarteaucitron.lang.source;
             html += '       </a>';
@@ -679,14 +679,14 @@ var tarteaucitron = {
             var c = 'tarteaucitron';
             tarteaucitron.userInterface.css(c + 'Percentage', 'display', 'block');
             tarteaucitron.userInterface.css(c + 'AlertSmall', 'display', 'none');
-            tarteaucitron.userInterface.css(c + 'AlertBig',   'display', 'block');
+            tarteaucitron.userInterface.css(c + 'AlertBig', 'display', 'block');
         },
         "closeAlert": function () {
             "use strict";
             var c = 'tarteaucitron';
             tarteaucitron.userInterface.css(c + 'Percentage', 'display', 'none');
             tarteaucitron.userInterface.css(c + 'AlertSmall', 'display', 'block');
-            tarteaucitron.userInterface.css(c + 'AlertBig',   'display', 'none');
+            tarteaucitron.userInterface.css(c + 'AlertBig', 'display', 'none');
             tarteaucitron.userInterface.jsSizing('box');
         },
         "toggleCookiesList": function () {
@@ -898,7 +898,7 @@ var tarteaucitron = {
                 value = tarteaucitron.parameters.cookieName + '=' + cookie + '!' + key + '=' + status,
                 domain = (tarteaucitron.parameters.cookieDomain !== undefined && tarteaucitron.parameters.cookieDomain !== '') ? 'domain=' + tarteaucitron.parameters.cookieDomain + ';' : '';
 
-          if (tarteaucitron.cookie.read().indexOf(key + '=' + status) === -1) {
+            if (tarteaucitron.cookie.read().indexOf(key + '=' + status) === -1) {
                 tarteaucitron.pro('!' + key + '=' + status);
             }
 
@@ -1093,7 +1093,7 @@ var tarteaucitron = {
         if (!navigator) { return 'en_US'; }
 
         var lang = navigator.language || navigator.browserLanguage ||
-                navigator.systemLanguage || navigator.userLang || null,
+            navigator.systemLanguage || navigator.userLang || null,
             userLanguage = lang.substr(0, 2);
 
         if (userLanguage === 'fr') {
@@ -1221,7 +1221,7 @@ var tarteaucitron = {
             if (elems[i] !== undefined) {
                 for (index = 0; index < matchClass.length; index += 1) {
                     if ((' ' + elems[i].className + ' ')
-                            .indexOf(' ' + matchClass[index] + ' ') > -1) {
+                        .indexOf(' ' + matchClass[index] + ' ') > -1) {
                         if (typeof content === 'function') {
                             if (noInner === true) {
                                 content(elems[i]);
@@ -1295,14 +1295,14 @@ var tarteaucitron = {
 
         tarteaucitron.cookie.number();
     },
-    "AddOrUpdate" : function(source, custom){
+    "AddOrUpdate": function (source, custom) {
         /**
          Utility function to Add or update the fields of obj1 with the ones in obj2
          */
-        for(key in custom){
-            if(custom[key] instanceof Object){
+        for (key in custom) {
+            if (custom[key] instanceof Object) {
                 source[key] = tarteaucitron.AddOrUpdate(source[key], custom[key]);
-            }else{
+            } else {
                 source[key] = custom[key];
             }
         }
