@@ -177,41 +177,41 @@ tarteaucitron.services.aduptech_conversion = {
         tarteaucitron.fallback([IDENTIFIER], "");
 
         for (var i = 0; i < elements.length; i++) {
-            var element = elements[i];
-
+            var element = elements[i];  
+                
             if (!element.getAttribute("advertiserId") || !element.getAttribute("conversionCode")) {
                 continue;
             }
-
-            var url = CONVERSION_PIXEL_BASE_URL +
-                "/" + encodeURIComponent(element.getAttribute("advertiserId")) +
-                "?t=" + encodeURIComponent(element.getAttribute("conversionCode"));
-
+            
+            var url = CONVERSION_PIXEL_BASE_URL + 
+                "/" + encodeURIComponent(element.getAttribute("advertiserId")) + 
+                "?t=" + encodeURIComponent(element.getAttribute("conversionCode"));   
+            
             if (element.getAttribute("price")) {
                 url += "&price=" + encodeURIComponent(element.getAttribute("price"));
             }
-
+            
             if (element.getAttribute("quantity")) {
                 url += "&quantity=" + encodeURIComponent(element.getAttribute("quantity"));
             }
-
+            
             if (element.getAttribute("total")) {
                 url += "&total=" + encodeURIComponent(element.getAttribute("total"));
             }
-
+            
             if (element.getAttribute("orderId")) {
                 url += "&order_id=" + encodeURIComponent(element.getAttribute("orderId"));
             }
-
+            
             if (element.getAttribute("itemNumber")) {
                 url += "&item_number=" + encodeURIComponent(element.getAttribute("itemNumber"));
             }
-
+            
             if (element.getAttribute("description")) {
                 url += "&description=" + encodeURIComponent(element.getAttribute("description"));
             }
 
-            (new Image()).src = url;
+            (new Image()).src = url;            
         }
     }
 };
@@ -1025,10 +1025,6 @@ tarteaucitron.services.gajs = {
             window._gaq.push (['_gat._anonymizeIp']);
         }
 
-        if (typeof tarteaucitron.user.gajsBefore === 'function') {
-            tarteaucitron.user.gajsBefore();
-        }
-
         if (tarteaucitron.user.gajsPageView) {
             window._gaq.push(['_trackPageview, ' + tarteaucitron.user.gajsPageView]);
         } else {
@@ -1066,6 +1062,10 @@ tarteaucitron.services.analytics = {
 
             if (tarteaucitron.user.analyticsAnonymizeIp) {
                 ga('set', 'anonymizeIp', true);
+            }
+
+            if (typeof tarteaucitron.user.analyticsPrepare === 'function') {
+                tarteaucitron.user.analyticsPrepare();
             }
 
             if (tarteaucitron.user.analyticsPageView) {
@@ -1175,7 +1175,7 @@ tarteaucitron.services.googlemapssearch = {
                 // url = x.getAttribute("data-url");
                 query = escape(x.getAttribute("data-search")),
                 key = x.getAttribute("data-api-key");
-
+            
             // return '<iframe src="' + url + '" width="' + width + '" height="' + height + '" frameborder="0" scrolling="no" allowtransparency allowfullscreen></iframe>';
             return '<iframe width="' + width +'" height="' + height + '" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q='+query+'&key='+key+'" allowfullscreen></iframe> '
         });
@@ -2205,7 +2205,7 @@ tarteaucitron.services.multiplegtag = {
     "uri": "https://support.google.com/analytics/answer/6004245",
     "needConsent": true,
     "cookies": (function () {
-
+        
         var cookies = ['_ga', '_gat', '_gid', '__utma', '__utmb', '__utmc', '__utmt', '__utmz'];
 
         if (tarteaucitron.user.multiplegtagUa !== undefined) {
@@ -2298,3 +2298,31 @@ tarteaucitron.services.matomo = {
         tarteaucitron.addScript(tarteaucitron.user.matomoHost + 'piwik.js', '', '', true, 'defer', true);
     }
 };
+
+// bing ads universal event tracking
+tarteaucitron.services.bingads = {
+    'key': 'bingads',
+    'type': 'ads',
+    'name': 'Bing Ads Universal Event Tracking',
+    'uri': 'https://advertise.bingads.microsoft.com/en-us/resources/policies/personalized-ads',
+    'needConsent': true,
+    'cookies': ['_uetmsclkid'],
+    'js': function () {
+        'use strict';
+        var u = tarteaucitron.user.bingadsTag || 'uetq';
+        window[u] = window[u] || [];
+
+        tarteaucitron.addScript('https://bat.bing.com/bat.js', '', function () {
+            var bingadsCreate = {ti: tarteaucitron.user.bingadsID};
+
+            if ('bingadsStoreCookies' in tarteaucitron.user) {
+                bingadsCreate['storeConvTrackCookies'] = tarteaucitron.user.bingadsStoreCookies;
+            }
+
+            bingadsCreate.q = window[u];
+            window[u] = new UET(bingadsCreate);
+            window[u].push('pageload');
+        });
+    }
+};
+
