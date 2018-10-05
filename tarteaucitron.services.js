@@ -1026,7 +1026,7 @@ tarteaucitron.services.gajs = {
         }
 
         if (typeof tarteaucitron.user.gajsPrepare === 'function') {
-            tarteaucitron.user.gajsPrepare();
+          tarteaucitron.user.gajsPrepare();
         }
 
         if (tarteaucitron.user.gajsPageView) {
@@ -2001,7 +2001,7 @@ tarteaucitron.services.youtube = {
             } else {
                 frame_height += '"" ';
             }
-            video_frame = '<iframe type="text/html" ' + frame_width + frame_height + ' src="//www.youtube-nocookie.com/embed/' + video_id + '?' + params + '" frameborder="0"></iframe>';
+            video_frame = '<iframe type="text/html" ' + frame_width + frame_height + ' src="//www.youtube-nocookie.com/embed/' + video_id + '?' + params + '" frameborder="0" allow="' + (x.getAttribute("autoplay") === '1' ? 'autoplay' : '') + '" allowfullscreen></iframe>';
             return video_frame;
         });
     },
