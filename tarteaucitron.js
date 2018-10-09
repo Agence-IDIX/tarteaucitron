@@ -16,7 +16,7 @@ var scripts = document.getElementsByTagName('script'),
 
 
 var tarteaucitron = {
-    "version": 20180829,
+    "version": '1.2.2',
     "cdn": cdn,
     "user": {},
     "lang": {},
@@ -378,7 +378,7 @@ var tarteaucitron = {
                         // create a wrapper container at the same level than tarteaucitron so we can add an aria-hidden when tarteaucitron is opened
                         var wrapper = document.createElement('div');
                         wrapper.id = "contentWrapper";
-                        
+
                         while (document.body.firstChild)
                         {
                             wrapper.appendChild(document.body.firstChild);
@@ -449,7 +449,7 @@ var tarteaucitron = {
                             // create wrapper container
                             var wrapper = document.createElement('div');
                             wrapper.id = "contentWrapper";
-                            
+
                             while (document.body.firstChild)
                             {
                                 wrapper.appendChild(document.body.firstChild);
@@ -754,7 +754,7 @@ var tarteaucitron = {
             }
             document.getElementById('contentWrapper').setAttribute("aria-hidden", "false");
             document.getElementsByTagName('body')[0].classList.remove('modal-open');
-            
+
         },
         "focusTrap": function() {
             "use strict";
@@ -772,23 +772,23 @@ var tarteaucitron = {
                 if (focusableEls[i].offsetHeight > 0) {
                    filtered.push(focusableEls[i]);
                 }
-            } 
+            }
 
-            firstFocusableEl = filtered[0];  
+            firstFocusableEl = filtered[0];
             lastFocusableEl = filtered[filtered.length - 1];
 
             //loop focus inside tarteaucitron
             document.getElementById('tarteaucitron').addEventListener("keydown", function (evt) {
-            
+
                 if ( evt.key === 'Tab' || evt.keyCode === 9 ) {
-                   
+
                     if ( evt.shiftKey ) /* shift + tab */ {
                         if (document.activeElement === firstFocusableEl) {
                             lastFocusableEl.focus();
                             evt.preventDefault();
                         }
                     } else /* tab */ {
-                        if (document.activeElement === lastFocusableEl) { 
+                        if (document.activeElement === lastFocusableEl) {
                             firstFocusableEl.focus();
                             evt.preventDefault();
                         }
