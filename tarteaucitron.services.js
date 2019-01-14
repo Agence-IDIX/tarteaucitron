@@ -1104,6 +1104,11 @@ tarteaucitron.services.gtag = {
         tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + tarteaucitron.user.gtagUa, '', function () {
             window.gtag = function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
+
+            if (typeof tarteaucitron.user.gtagPrepare === 'function') {
+              tarteaucitron.user.gtagPrepare();
+            }
+
             gtag('config', tarteaucitron.user.gtagUa);
 
             if (typeof tarteaucitron.user.gtagMore === 'function') {
